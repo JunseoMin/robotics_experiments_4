@@ -29,14 +29,14 @@ Tl=0;
 
 J=0.2;
 b=0.1;
-% plot
+%% plot
 
-res=sim('motor_modeling');
-x1=res.current.time;
-y1=res.current.data;
+%res=sim('motor_modeling');
+%x1=res.current.time;
+%y1=res.current.data;
 
-x2=res.torque.time;
-y2=res.torque.data;
+%x2=res.torque.time;
+%y2=res.torque.data;
 
-plot(x1,y1)
-plot(x2,y2)
+%plot(x1,y1)
+%plot(x2,y2)
