@@ -1,0 +1,27 @@
+%%
+clc all
+clear
+
+%% global
+DC_res=sim('moterhomework');
+Geared_res=sim('geared_motor_load');
+%% DC motor
+
+
+
+%% Geared motor
+Va=0;
+La=0;
+Ra=0;
+
+Kt=0;
+Ke=0;
+
+Jeq=0;
+Beq=0;
+Jl=0;
+Bl=0;
+
+gear_ratio=1/81;
+gear_alpha=0;
+
