@@ -143,7 +143,7 @@ Ka_v = 1/Kp_v;
 % hold off;
 % 
 % % Analyze the response for different velocity reference values ( 1, 2, 3, 5 rad/s)
-% velocity_reference_values = [1, 2, 3, 5]; % 변경할 참조 속도값을 지정합니다.
+% velocity_reference_values = [1, 2, 3, 5];
 % 
 % figure;
 % hold on;
