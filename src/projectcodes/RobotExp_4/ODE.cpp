@@ -44,8 +44,14 @@ void InitODE() {
 
 
 void RunODE(size_t width, size_t height) {
-
+	//page 5
 	//TO DO
+	InitDrawStuff();
+	InitODE();
+
+	InitRobot();
+
+	dsSimulationLoop(0,0,width,height,&g_Fn);
 }
 
 
@@ -69,9 +75,15 @@ void StartDrawStuff() {
 
 void SimLoopDrawStuff(int pause) 
 {
-
+	//page 6
 	//TO DO
-	
+	PControl();
+
+	double dt = 2.1;
+	dWorldStep(g_World,dt);
+
+	dsSetColor(0., 0., 0.);
+	dsDrawCapsuleD(dBodyGetPosition(g_oObj[] body),dBodyGetRotation(g_oObj[] body),length, radious);
 }
 
 
