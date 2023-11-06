@@ -18,6 +18,8 @@ dsFunctions g_Fn;
 static dWorldID g_World;
 static dSpaceID g_Space;
 static dJointGroupID g_Contactgroup;
+static dGeomID g_Ground;
+
 
 Object g_oObj[MAX_JOINT_NUM + 1];
 static dJointID g_oJoint[MAX_JOINT_NUM + 1];
@@ -39,6 +41,16 @@ void InitDrawStuff() {
 void InitODE() {
 
 	//TO DO
+	dInitODE();
+	g_World = dWorldCreate();
+	g_Space = dHashSpaceCreate(0);
+	g_Contactgroup = dJointGroupCreate(0);
+	g_Ground = dCreatePlane(g_Space, 0, 0, 1, 0);
+	
+	dWorldSetGravity(g_World,0 ,0, -9.8);	// gravity setting X,Y,Z
+	dWorldSetERP(g_World,1.0);
+	dWorldSetCFM(g_World,1e-5);
+
 }
 
 
@@ -105,8 +117,46 @@ void StopDrawStuff() {
 
 void InitRobot()
 {
+	//body
+	dMass mass;
+	dMatrix3 R;
 
+	//mass point
+	dReal x[MAX_JOINT_NUM] = {0.0, 0.0};
+	dReal y[MAX_JOINT_NUM] = {0.0, 0.0};
+	dReal z[MAX_JOINT_NUM] = {0.5, 1.25};
+
+	//link pose
+	dReal ori_x[MAX_JOINT_NUM] = {0.0, 0.0};
+	dReal ori_y[MAX_JOINT_NUM] = {0.0, 0.0};
+	dReal ori_z[MAX_JOINT_NUM] = {1.0, 1.0};
+	dReal ori_q[MAX_JOINT_NUM] = {0.0, 0.0};
+
+	//link length
+	dReal length[MAX_JOINT_NUM] = {1.0, 0.5};
+
+	//mass of A
+	dReal weight[MAX_JOINT_NUM] = {1.0,1.0};
+
+	dReal r[MAX_JOINT_NUM];
+	//creating body
+	for (int i = 0; i < MAX_JOINT_NUM; i++)
+	{
+		/* code */
+		g_oObj[i].body = dBodyCreate(g_World);
+		dBodySetPosition(g_oObj[i].body,x[i],y[i],z[i]);
+		dMassSetZero(&mass);
+		dMassSetCapsuleTotal(&mass, weight[i], 1, r[i], length[i]);
+		dBodySetMass(g_oObj[i].body,&mass);
+		g_oObj[i].geom=dCreateCapsule(g_Space, r[i], length[i]);
+		dGeomSetBody(g_oObj[i].geom, g_oObj[i].body);
+		dRFromAxisAndAngle(R,ori_x[i],ori_y[i],ori_z[i],ori_q[i]);
+		dBodySetRotation(g_oObj[i].body, R);
+	}
+	
 	//TO DO
+
+
 	
 }
 
