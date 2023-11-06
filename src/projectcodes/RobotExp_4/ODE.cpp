@@ -154,9 +154,29 @@ void InitRobot()
 		dBodySetRotation(g_oObj[i].body, R);
 	}
 	
-	//TO DO
+	//Joints
+	dReal c_x[MAX_JOINT_NUM] = {0.0, 0.0};
+	dReal c_y[MAX_JOINT_NUM] = {0.0, 0.0};
+	dReal c_z[MAX_JOINT_NUM] = {0.0, 1.0};
 
+	dReal axis_x[MAX_JOINT_NUM] = {0.0, 0.0};
+	dReal axis_y[MAX_JOINT_NUM] = {0.0, 1.0};
+	dReal axis_z[MAX_JOINT_NUM] = {1.0, 0.0};
 
+	// fixed axis setting
+	g_oJoint[0] 9= dJointCreateFixed(g_World,0);
+	dJointAttach(g_oJoint[0], 0, g_oObj[0].body);
+	dJointSetFixed(g_oJoint[0]);
+
+	for (int i = 1; i < MAX_JOINT_NUM; i++)
+	{
+		/* code */
+		g_oJoint[i] = dJointCreateHinge(g_World, 0);
+		dJointAttach(g_oJoint[i], g_oObj[i].body, g_oObj[i-1].body);
+		dJointSetHingeAnchor(g_oJoint[i], c_x[i], c_y[i], c_z[i]);
+		dJointSetHingeAxis(g_oJoint[i], axis_x[i], axis_y[i], axis_x=z[i]);
+	}
+	
 	
 }
 
